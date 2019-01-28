@@ -1,0 +1,50 @@
+package javaapplication9;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class JavaApplication9 
+{
+
+    static Scanner s = new Scanner(System.in);
+    static Random r = new Random();
+
+    public static void main(String[] args)
+    {
+        //zad1();
+        //zad2();
+        zad3();
+    }
+    
+    static void zad3()
+    {
+      System.out.print("Podaj tekst: ");
+      String tekst = s.nextLine();
+      System.out.print("Podaj klucz: ");
+      String klucz = s.nextLine();
+      
+      System.out.print(tekst);
+      
+      int id = 0;
+      String nowy = "";
+      for(int i = 0; i < tekst.length(); i++)
+      {
+          if((tekst.charAt(i) >= 'a' && tekst.charAt(i) <= 'z') || (tekst.charAt(i) >= 'A' && tekst.charAt(i) <= 'Z'))
+          {
+              char c1 = tekst.charAt(i);
+              char c2 = klucz.charAt(id);
+              // jak zamieniæ z int na char...
+              nowy += (c1 > 'z')? (char)((c1 + c2) % 'Z'): (char)((c1 + c2) % 'z') ;
+              
+             id = (++id >= klucz.length())? 0: id;
+          }
+          else
+          {
+              nowy += tekst.charAt(i);
+          }
+      }
+      
+      System.out.printf("Stare slowo: %s, Po szyfrowaniu: %s", tekst, nowy);
+    }
+}
+

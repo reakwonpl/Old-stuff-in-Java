@@ -1,0 +1,55 @@
+package javaapplication9;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class JavaApplication9 
+{
+
+    static Scanner s = new Scanner(System.in);
+    static Random r = new Random();
+
+    public static void main(String[] args)
+    {
+        zad1();
+    }
+    
+    
+    static void zad1()
+    {
+        int min = -100, max = 100;
+        int ileParzystych = 0, ileNieparzystych = 0;
+        int najwieksza1 = Integer.MIN_VALUE, najwieksza2 = Integer.MIN_VALUE, najwieksza3 = Integer.MIN_VALUE;
+        
+        for(int i = 0; i < 100; i++)
+        {
+            int liczba = r.nextInt(max - min + 1) + min;
+            
+            if(liczba % 2 == 0) ileParzystych++;
+            else ileNieparzystych++;
+            
+            if(liczba > 0 && liczba > najwieksza1)
+            {
+                najwieksza3 = najwieksza2;
+                najwieksza2 = najwieksza1;
+                najwieksza1 = liczba;
+            }
+            else if(liczba > 0 && liczba > najwieksza2)
+            {
+                najwieksza3 = najwieksza2;
+                najwieksza2 = liczba;
+            }
+            else if(liczba > 0 && liczba > najwieksza3)
+            {
+                najwieksza3 = liczba;
+            }
+        }
+        
+        System.out.printf("Najwieksza: %s, druga najwieksza: %s, trzecia najwieksza: %s", najwieksza1, najwieksza2, najwieksza3);
+        
+        if(najwieksza1 < 0 || najwieksza2 < 0 || najwieksza3 < 0)
+        {
+            System.out.printf("Nie wszystkie z trzech najwiêkszych liczb s¹ wiêksze od zera");
+        }
+    }
+}

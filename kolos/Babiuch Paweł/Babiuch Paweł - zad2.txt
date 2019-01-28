@@ -1,0 +1,71 @@
+package javaapplication9;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class JavaApplication9 
+{
+
+    static Scanner s = new Scanner(System.in);
+    static Random r = new Random();
+
+    public static void main(String[] args)
+    {
+        //zad1();
+        zad2();
+    }
+    
+    static void zad2()
+    {
+        int size = 40;
+        int[][] tab = new int[size][size];
+        int min = -50, max = 50;
+        
+        for(int x = 0; x < size; x++) // x = wiersz
+        {
+            for(int y = 0; y < size; y++) // y = kolumna
+            {
+                int liczba;
+                
+                if(x % 2 == 0)
+                {
+                    liczba = x + y;
+                }
+                else
+                {
+                    liczba = r.nextInt(max - min + 1) + min;
+                }
+               
+                tab[x][y] = liczba;
+            }
+        }
+        
+        // Odwracanie wierszy:
+        for(int x = 0; x < size; x++)
+        {
+            int[] tabX = new int[tab[x].length]; // 0 1 2 3 4
+            
+            for(int y = 0; y < tabX.length; y++)
+            {
+                tabX[y] = tab[x][y];
+            }
+                    
+            for(int y = size -1, y2 = 0; y >= 0; y--, y2++)
+            {
+                tab[x][y] = tabX[y2];
+            }
+        }
+        
+        
+        // Wyœwietlanie:
+        for(int x = 0; x < size; x++) // x = wiersz
+        {
+            for(int y = 0; y < size; y++) // y = kolumna
+            {
+                System.out.print(tab[x][y] + " ");
+            }
+            System.out.print("\n");
+        }
+    }
+}
+
