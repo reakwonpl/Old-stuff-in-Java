@@ -1,0 +1,504 @@
+ //////////////////////////////
+        
+//        int distanceValue;
+//        int sumValue;
+//        int variable;
+//        
+//        int[] villager = new int[arr.length];
+//        int[] randomVillager = new int[arr.length];
+//        Random r = new Random();
+//        
+//        int a = r.nextInt(arr.length - 1)+1;
+//        distanceValue = arr[0][a];
+//        sumValue = distanceValue;
+//        variable = a;
+//        
+//        villager[0] = distanceValue;
+//        randomVillager[0] = a;
+//        
+//        int b = a;
+//        boolean theSame = false;
+//        int repeater = 0;
+//        
+//        for(int i = 0; i <arr.length -2;i++)
+//        {
+//            theSame = false;
+//            b = a;
+//            while(theSame == false){
+//                repeater = 0;
+//                b = r.nextInt(arr.length - 1)+1;
+//                
+//                for(int j = 0; j < randomVillager.length -1;j++)
+//                {
+//                    if(randomVillager[j] != b)
+//                    {
+//                        repeater++;
+//                    }
+//                    if(randomVillager.length -1 == repeater){
+//                        theSame = true;
+//                    }
+//                }
+//            }
+//            distanceValue = arr[variable][b];
+//            sumValue += distanceValue;
+//            variable = b;
+//            villager[i + 1] = distanceValue;
+//            randomVillager[i + 1] = b;
+//            System.out.println("Distance: "+distanceValue);
+//            
+//        }
+//        distanceValue = arr[0][b];
+//        sumValue += distanceValue;
+//        System.out.println("Distance: "+distanceValue);
+//        for(int i = 0;i < randomVillager.length;i++)
+//        {
+//            System.out.println("Villager: "+randomVillager[i]);
+//        }
+//       
+//        System.out.println("Sum: "+sumValue);     
+                      
+
+///////////////////2///////////////////////////////////
+public static int[][] przepiszDoTablicy (String nazwa) throws IOException
+    {
+        BufferedReader plik = null;
+        int [][] tablica = null;
+        try
+        {
+            plik = new BufferedReader(new FileReader(nazwa));
+ 
+            String linia = plik.readLine();
+            if(linia != null)
+            {
+                int wielkoscTab = Integer.parseInt(linia);
+                tablica = new int[wielkoscTab][wielkoscTab];
+ 
+                String [] wieszeTablicy = null;
+                int odleglosc = 0;
+ 
+                linia = plik.readLine();
+ 
+                for (int i = 0; i< tablica.length; i++)
+                {
+                    wieszeTablicy = linia.split(" ");
+ 
+                    for (int j = 0; j<wieszeTablicy.length; j++)
+                    {
+                        odleglosc = Integer.parseInt(wieszeTablicy[j]);
+                        tablica[j][i] = odleglosc;
+                        tablica[i][j] = odleglosc;
+                    }
+ 
+                    linia = plik.readLine();
+                }
+            }
+        }
+        finally
+        {
+            if (plik != null)
+            {
+                plik.close();
+            }
+        }
+        return tablica;
+    }
+ 
+    public static void wyswietlTablice (int [][] tab)
+    {
+        for (int i = 0; i<tab.length;i++)
+        {
+            for(int j = 0; j<tab[i].length; j++)
+            {
+                System.out.print(tab[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    public static int[] wylosowaneLiczby (int [][] tab)
+    {
+        int[][] tablicaOdleglosci = tab;
+        int jednaOdleglosc ;
+        int sumaOdleglosci;
+        int pierwszaZmienna;
+        int[] mieszkaniec = new int[tablicaOdleglosci.length];
+        int[] wylosowanychMieszkaniecow = new int[tablicaOdleglosci.length + 1];
+        Random r = new Random();
+       
+     
+        int a = r.nextInt(tablicaOdleglosci.length -1)+1;
+        jednaOdleglosc = tablicaOdleglosci[0][a];
+        sumaOdleglosci = jednaOdleglosc;
+        pierwszaZmienna=a;
+        mieszkaniec[0] = jednaOdleglosc;
+        wylosowanychMieszkaniecow[0] = a;
+        //System.out.println(jednaOdleglosc);
+        int p = a;
+        boolean czyTaSama = false;
+        int czySieNiePowtarza = 0;
+        for (int i = 0; i<tablicaOdleglosci.length - 2;i++)
+        {
+            czyTaSama = false;
+            p = a;
+            while(czyTaSama == false)
+            {
+            czySieNiePowtarza =0;  
+            p = r.nextInt(tablicaOdleglosci.length -1)+1;
+            for (int j = 0; j<wylosowanychMieszkaniecow.length-1;j++)
+            {
+               
+                if (wylosowanychMieszkaniecow[j] != p)
+                {
+                    czySieNiePowtarza++;
+                }
+                if (wylosowanychMieszkaniecow.length-1 == czySieNiePowtarza)
+                {
+                    czyTaSama = true;
+                }
+            }
+            }
+            jednaOdleglosc = tablicaOdleglosci[pierwszaZmienna][p];
+            sumaOdleglosci += jednaOdleglosc;
+            pierwszaZmienna=p;
+            mieszkaniec[i + 1] = jednaOdleglosc;
+            wylosowanychMieszkaniecow[i + 1] = p;
+           // System.out.println(jednaOdleglosc);
+        }
+        jednaOdleglosc = tablicaOdleglosci[0][p];
+        sumaOdleglosci += jednaOdleglosc;
+        //System.out.println(jednaOdleglosc);
+        wylosowanychMieszkaniecow[wylosowanychMieszkaniecow.length -1] = sumaOdleglosci;
+        for (int i = 0; i<wylosowanychMieszkaniecow.length;i++)
+        {
+            //System.out.print(wylosowanychMieszkaniecow[i] + " ");
+        }
+        //System.out.println(sumaOdleglosci);
+        return wylosowanychMieszkaniecow;
+    }
+    public static void main(String[] args) throws IOException
+    {
+        int [][] tablicaOdleglosci = null;
+        String nazwaPliku = "zadanie.txt";
+ 
+        tablicaOdleglosci = przepiszDoTablicy(nazwaPliku);
+        wyswietlTablice(tablicaOdleglosci);
+        int najmniejsza=100000;
+        int [] wylosowanyM = null;
+        int [] uporzadkowaneOdleglosci = new int[tablicaOdleglosci.length+1];
+        Random r = new Random();
+        int [][] zbiorDrog = new int[tablicaOdleglosci.length+1][tablicaOdleglosci.length+1];
+        int [][] wygraneDrogi = new int[tablicaOdleglosci.length+1][tablicaOdleglosci.length+1];
+       
+        int [] tablica01 = new int[tablicaOdleglosci.length+1];
+        Random r01 = new Random();
+        for (int i=0;i<tablicaOdleglosci.length;i++)
+        {
+            for (int j=0;j<tablicaOdleglosci.length+1;j++)
+            {
+            wylosowanyM = wylosowaneLiczby(tablicaOdleglosci);
+            //System.out.print(wylosowanyM[j] + " ");
+            zbiorDrog[i][j]=wylosowanyM[j];
+            }
+            //System.out.println("");
+        }
+        /*
+        for (int i=0;i<uporzadkowaneOdleglosci.length;i++)
+        {
+            uporzadkowaneOdleglosci[i]=zbiorDrog[i][zbiorDrog.length];
+        }
+        System.out.println("moze zadziala");
+        Arrays.sort(uporzadkowaneOdleglosci);
+        for (int i=0;i<uporzadkowaneOdleglosci.length;i++)
+        {
+            int d = r.nextInt(zbiorDrog[zbiorDrog.length][zbiorDrog.length])+1;
+            for (int j=0;j<uporzadkowaneOdleglosci.length;j--)
+            {
+                if(d > uporzadkowaneOdleglosci[j])
+                {
+                    System.out.println(uporzadkowaneOdleglosci[j]);
+                }
+            }
+        }*/
+       
+        for (int i=0;i<tablicaOdleglosci.length+1;i++)
+        {
+            int a = r.nextInt(tablicaOdleglosci.length);
+            int b = r.nextInt(tablicaOdleglosci.length);
+            int c = r.nextInt(tablicaOdleglosci.length);
+            int d = r.nextInt(tablicaOdleglosci.length);
+            int e = r.nextInt(tablicaOdleglosci.length);
+            int odlegloscA = zbiorDrog[a][tablicaOdleglosci.length];
+            int odlegloscB = zbiorDrog[b][tablicaOdleglosci.length];
+            int odlegloscC = zbiorDrog[c][tablicaOdleglosci.length];
+            int odlegloscD = zbiorDrog[d][tablicaOdleglosci.length];
+            int odlegloscE = zbiorDrog[e][tablicaOdleglosci.length];
+            int min1 = Math.min(odlegloscA,odlegloscB);
+            int min2 = Math.min(odlegloscC,odlegloscD);
+            int min3 = Math.min(odlegloscE,min1);
+            int min = Math.min(min3,min2);
+            if (min == odlegloscA)
+            {
+                for (int j=0;j<tablicaOdleglosci.length+1;j++)
+                {
+                    wygraneDrogi[i][j]=zbiorDrog[a][j];
+                }
+            }
+            if (min == odlegloscB)
+            {
+                for (int j=0;j<tablicaOdleglosci.length+1;j++)
+                {
+                    wygraneDrogi[i][j]=zbiorDrog[b][j];
+                }
+            }
+            if (min == odlegloscC)
+            {
+                for (int j=0;j<tablicaOdleglosci.length+1;j++)
+                {
+                    wygraneDrogi[i][j]=zbiorDrog[c][j];
+                }
+            }
+            if (min == odlegloscD)
+            {
+                for (int j=0;j<tablicaOdleglosci.length+1;j++)
+                {
+                    wygraneDrogi[i][j]=zbiorDrog[d][j];
+                }
+            }
+            if (min == odlegloscE)
+            {
+                for (int j=0;j<tablicaOdleglosci.length+1;j++)
+                {
+                    wygraneDrogi[i][j]=zbiorDrog[e][j];
+                }
+            }
+        }
+        System.out.println("Wygrane");
+        for (int i = 0; i<wygraneDrogi.length;i++)
+        {
+            for(int j = 0; j<wygraneDrogi[i].length; j++)
+            {
+                System.out.print(wygraneDrogi[i][j] + " ");
+            }
+            System.out.println();
+        }
+        /**/
+        for (int i=0;i<tablicaOdleglosci.length;i++)
+        {
+           int f = r01.nextInt(2);
+           
+           if (f == 0)
+           {
+               tablica01[i] = 0;
+           }
+           else
+           {
+               tablica01[i] = 1;
+           }
+           
+        }
+        /**/
+        for (int i=0;i<tablicaOdleglosci.length;i++)
+        {
+            for (int j=0;j<tablicaOdleglosci.length+1;j++)
+            {
+                zbiorDrog[i][j] = -1;
+                //System.out.print(zbiorDrog[i][j] + " ");
+            }
+            //System.out.println("");
+        }
+       
+        for (int i=0;i<tablicaOdleglosci.length;i++)
+        {
+            for (int j=0;j<tablicaOdleglosci.length;j++)
+            {
+                if(tablica01[j] == 0)
+                {
+                    zbiorDrog[i][j] = wygraneDrogi[i][j];                      
+                }
+                System.out.print(zbiorDrog[i][j] + " ");    
+            }
+            System.out.println("");
+        }
+        for (int i=0;i<tablicaOdleglosci.length;i++)
+        {
+            for (int j=0;j<tablicaOdleglosci.length;j++)
+            {
+                boolean czyJest = true;
+                if( i%2==0)
+                {
+                    if(tablica01[j] == 1)
+                    {
+                        /*for(int p=0;p<tablicaOdleglosci.length;p++)
+                        {
+                            if(zbiorDrog[i+1][j]==zbiorDrog[p][j])
+                            {
+                                       
+                            }
+                        }*/
+                    }
+                }
+                if( i%2==1)
+                {
+                    if(tablica01[j] == 1)
+                    {
+                       
+                   
+                    }
+                }
+            }
+        }
+    }
+}
+
+/////////////////////////1////////////////////////////////
+ public static int[][] przepiszDoTablicy (String nazwa) throws IOException
+    {
+        BufferedReader plik = null;
+        int [][] tablica = null;
+        try
+        {
+            plik = new BufferedReader(new FileReader(nazwa));
+ 
+            String linia = plik.readLine();
+            if(linia != null)
+            {
+                int wielkoscTab = Integer.parseInt(linia);
+                tablica = new int[wielkoscTab][wielkoscTab];
+ 
+                String [] wieszeTablicy = null;
+                int odleglosc = 0;
+ 
+                linia = plik.readLine();
+ 
+                for (int i = 0; i< tablica.length; i++)
+                {
+                    wieszeTablicy = linia.split(" ");
+ 
+                    for (int j = 0; j<wieszeTablicy.length; j++)
+                    {
+                        odleglosc = Integer.parseInt(wieszeTablicy[j]);
+                        tablica[j][i] = odleglosc;
+                        tablica[i][j] = odleglosc;
+                    }
+ 
+                    linia = plik.readLine();
+                }
+            }
+        }
+        finally
+        {
+            if (plik != null)
+            {
+                plik.close();
+            }
+        }
+        return tablica;
+    }
+ 
+    public static void wyswietlTablice (int [][] tab)
+    {
+        for (int i = 0; i<tab.length;i++)
+        {
+            for(int j = 0; j<tab[i].length; j++)
+            {
+                System.out.print(tab[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) throws IOException
+    {
+        int [][] tablicaOdleglosci = null;
+        String nazwaPliku = "zadanie.txt";
+ 
+        tablicaOdleglosci = przepiszDoTablicy(nazwaPliku);
+        wyswietlTablice(tablicaOdleglosci);
+        int jednaOdleglosc;
+        int sumaOdleglosci;
+        int pierwszaZmienna;
+        int[] mieszkaniec = new int[tablicaOdleglosci.length];
+        int[] wylosowanychMieszkaniecow = new int[tablicaOdleglosci.length];
+        Random r = new Random();
+       
+     
+        int a = r.nextInt(tablicaOdleglosci.length -1)+1;
+        jednaOdleglosc = tablicaOdleglosci[0][a];
+        sumaOdleglosci = jednaOdleglosc;
+        pierwszaZmienna=a;
+        mieszkaniec[0] = jednaOdleglosc;
+        wylosowanychMieszkaniecow[0] = a;
+        System.out.println(jednaOdleglosc);
+        int p = a;
+        boolean czyTaSama = false;
+        int czySieNiePowtarza = 0;
+        for (int i = 0; i<tablicaOdleglosci.length - 2;i++)
+        {
+            czyTaSama = false;
+            p = a;
+            while(czyTaSama == false)
+            {
+            czySieNiePowtarza =0;  
+            p = r.nextInt(tablicaOdleglosci.length -1)+1;
+            for (int j = 0; j<wylosowanychMieszkaniecow.length-1;j++)
+            {
+               
+                if (wylosowanychMieszkaniecow[j] != p)
+                {
+                    czySieNiePowtarza++;
+                }
+                if (wylosowanychMieszkaniecow.length-1 == czySieNiePowtarza)
+                {
+                    czyTaSama = true;
+                }
+            }
+            }
+            jednaOdleglosc = tablicaOdleglosci[pierwszaZmienna][p];
+            sumaOdleglosci += jednaOdleglosc;
+            pierwszaZmienna=p;
+            mieszkaniec[i + 1] = jednaOdleglosc;
+            wylosowanychMieszkaniecow[i + 1] = p;
+            System.out.println(jednaOdleglosc);
+        }
+        jednaOdleglosc = tablicaOdleglosci[0][p];
+        sumaOdleglosci += jednaOdleglosc;
+        System.out.println(jednaOdleglosc);
+        for (int i = 0; i<wylosowanychMieszkaniecow.length;i++)
+        {
+            System.out.println(wylosowanychMieszkaniecow[i]);
+        }
+        System.out.println(sumaOdleglosci);
+    }
+}
+/////////////////////3///////////////////////////////////////////////////
+ while(czyTaSama == false)
+            {
+            czySieNiePowtarza =0;  
+            p = r.nextInt(tablicaOdleglosci.length -1)+1;
+            for (int j = 0; j<wylosowanychMieszkaniecow.length-1;j++)
+            {
+                
+                if (wylosowanychMieszkaniecow[j] != p)
+                {
+                    czySieNiePowtarza++;
+                }
+                else
+                {
+                    j=wylosowanychMieszkaniecow.length;
+                    czySieNiePowtarza =0;
+                    
+                }
+                if (wylosowanychMieszkaniecow.length-1 == czySieNiePowtarza+1)
+                {
+                    czyTaSama = true;
+                    jednaOdleglosc = tablicaOdleglosci[pierwszaZmienna][p];
+                    sumaOdleglosci += jednaOdleglosc;
+                    pierwszaZmienna=p;
+                    mieszkaniec[i + 1] = jednaOdleglosc;
+                    wylosowanychMieszkaniecow[i+1] = p;
+                }
+                //System.out.println(wylosowanychMieszkaniecow.length-1 + "-" + czySieNiePowtarza);
+            }
+            
+
+            }
+           // System.out.println(jednaOdleglosc);
+        }
